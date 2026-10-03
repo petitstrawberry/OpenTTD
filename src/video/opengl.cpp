@@ -809,7 +809,8 @@ bool OpenGLBackend::InitShaders()
 
 	auto [glsl_major, glsl_minor] = DecodeVersion(*ver);
 
-	bool glsl_150 = (IsOpenGLVersionAtLeast(3, 2) || glsl_major > 1 || (glsl_major == 1 && glsl_minor >= 5)) && _glBindFragDataLocation != nullptr;
+	/* GLSL reports a two-digit minor version: 1.20 is 20, 1.50 is 50. */
+	bool glsl_150 = (IsOpenGLVersionAtLeast(3, 2) || glsl_major > 1 || (glsl_major == 1 && glsl_minor >= 50)) && _glBindFragDataLocation != nullptr;
 
 	/* Create vertex shader. */
 	GLuint vert_shader = _glCreateShader(GL_VERTEX_SHADER);
